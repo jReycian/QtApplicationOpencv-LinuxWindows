@@ -181,17 +181,20 @@ void OpenCVCamera::on_selectDeviceCB_currentIndexChanged(int index)
 void OpenCVCamera::getAvailableResolutions(int indexCamera)
 {
     QList<QCameraInfo> getCameraDevice = QCameraInfo::availableCameras();
-    QCameraInfo cameraDevice = getCameraDevice[indexCamera];
-    QCamera *camera  = new QCamera(cameraDevice);
-    camera->load();
-
-    QCameraImageCapture *image_capture = new QCameraImageCapture(camera);
-    QList<QSize> resolution = image_capture->supportedResolutions();
-
-    for (const QSize &resolutions : resolution)
+    if (getCameraDevice.count() > 0)
     {
-        ui->cb_resolution->addItem(QString("%1x%2").arg(resolutions.width()).arg(resolutions.height()),
-                                   QVariant(resolutions));
+        QCameraInfo cameraDevice = getCameraDevice[indexCamera];
+        QCamera *camera  = new QCamera(cameraDevice);
+        camera->load();
+
+        QCameraImageCapture *image_capture = new QCameraImageCapture(camera);
+        QList<QSize> resolution = image_capture->supportedResolutions();
+
+        for (const QSize &resolutions : resolution)
+        {
+            ui->cb_resolution->addItem(QString("%1x%2").arg(resolutions.width()).arg(resolutions.height()),
+                                       QVariant(resolutions));
+        }
     }
 }
 
