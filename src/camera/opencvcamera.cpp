@@ -16,7 +16,7 @@ OpenCVCamera::OpenCVCamera(QWidget *parent) :
     ui->setupUi(this);
     ui->cb_formats->setDisabled(true);
     ui->btnProcess->setDisabled(true);
-    ui->checkBox_enableSaveImg->setDisabled(true);
+//    ui->checkBox_enableSaveImg->setDisabled(true);
 
     timer = new QTimer(this);
     initializeCameradevices();
